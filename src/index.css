@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-52%) translateX(-6px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-48%) translateX(6px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}

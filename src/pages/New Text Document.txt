@@ -1,0 +1,22 @@
+import React from "react";
+import { useLocation, Link } from "react-router-dom";
+
+export default function Result() {
+  const { state } = useLocation();
+  const { score, total } = state;
+
+  return (
+    <div className="p-6 text-center">
+      <h1 className="text-3xl font-bold mb-4">Kết quả</h1>
+      <p className="text-xl mb-4">
+        Bạn đạt {score} / {total} điểm
+      </p>
+      <Link
+        to="/theory-practice"
+        className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        Quay lại
+      </Link>
+    </div>
+  );
+}

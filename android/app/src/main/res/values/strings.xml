@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SHLX</string>
+    <string name="title_activity_main">SHLX</string>
+    <string name="package_name">com.thanhlongdo.SHLX</string>
+    <string name="custom_url_scheme">com.thanhlongdo.SHLX</string>
+</resources>
