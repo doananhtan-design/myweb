@@ -246,4 +246,49 @@ export default function SimulationRandom() {
         )}
 
         <div className="text-center text-gray-600 mb-3 text-sm sm:text-base">
-          Tổng điểm:
+          Tổng điểm: {totalScore} / {questions.length * 5}
+        </div>
+
+        {/* 🔔 Kết quả cuối */}
+        {currentIndex === questions.length - 1 && score !== null && (
+          <div
+            className={`mt-3 p-3 rounded-lg text-white font-bold text-center text-sm sm:text-base ${
+              totalScore >= passingScore ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            {totalScore >= passingScore
+              ? "🎉 Chúc mừng! Bạn đã đạt"
+              : "⚠️ Cần luyện tập thêm"}
+          </div>
+        )}
+
+        {/* ⚠️ Câu cần luyện thêm */}
+        {lowScoreQuestions.length > 0 && (
+          <div className="mt-4 bg-yellow-50 p-3 rounded-lg text-sm">
+            <h3 className="font-semibold text-yellow-800 mb-2">
+              ⚠️ Các câu cần luyện thêm:
+            </h3>
+            {lowScoreQuestions.map((q) => (
+              <p
+                key={q.index}
+                className="cursor-pointer hover:underline"
+                onClick={() => handleRedoQuestion(q)}
+              >
+                {q.title} → {q.score} điểm
+              </p>
+            ))}
+          </div>
+        )}
+
+        <div className="text-center mt-6">
+          <Link
+            to="/practice/simulation"
+            className="text-gray-600 hover:text-gray-800 underline text-sm"
+          >
+            ← Quay lại danh sách chủ đề
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
