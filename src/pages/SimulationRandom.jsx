@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import simulationQuestions from "../data/simulationQuestions.json";
 import {
@@ -59,25 +59,36 @@ export default function SimulationRandom() {
   }, []);
 
   const selected = questions[currentIndex];
+  const segments = useMemo(
+    () =>
+      selected
+        ? getScoreSegments(selected.correctTimeStart, selected.correctTimeEnd)
+        : [],
+    [selected]
+  );
+
+  const handleScore = (time) => {
+    const s = segments.reduce(
+      (best, seg) =>
+        time >= seg.start && time <= seg.end ? Math.max(best, seg.score) : best,
+      0
+    );
+    setScore(s);
+    setPressedTime(time);
+    setTotalScore((prev) => prev + s);
+    if (s < 4) {
+      setShowHint(true);
+      setOverlayActive(true);
+      videoRef.current.pause();
+    }
+  };
 
   useSpaceScore({
     videoRef,
     selected,
     onScore: ({ score: s, pressedTime: t }) => {
       if (overlayActive) return;
-      setScore(s);
-      setPressedTime(t);
-      setTotalScore((prev) => prev + s);
-
-      if (s < 4) {
-        setShowHint(true);
-        setOverlayActive(true);
-        setLowScoreQuestions((prev) => [
-          ...prev,
-          { ...selected, index: currentIndex, score: s },
-        ]);
-        videoRef.current.pause();
-      }
+      handleScore(t);
     },
   });
 
@@ -125,6 +136,14 @@ export default function SimulationRandom() {
           🎲 Đề ngẫu nhiên - 10 câu
         </h1>
 
+        {/* 🔵 Thanh tiến trình */}
+        <div className="w-full bg-gray-200 h-2 rounded-full mb-2">
+          <div
+            className="bg-blue-500 h-2 rounded-full transition-all"
+            style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+          />
+        </div>
+
         <div className="text-center text-gray-500 mb-2 text-sm sm:text-base">
           Câu {currentIndex + 1}/{questions.length}
         </div>
@@ -133,7 +152,7 @@ export default function SimulationRandom() {
           {selected.title}
         </h2>
 
-        {/* 🎬 Video (to hơn + tương thích mobile landscape) */}
+        {/* 🎬 Video + nút gắn cờ */}
         <div className="relative">
           <video
             ref={videoRef}
@@ -146,6 +165,20 @@ export default function SimulationRandom() {
             className="w-full max-h-[90vh] sm:max-h-[75vh] object-contain rounded-xl shadow-lg mb-3"
             style={{ aspectRatio: "16/9" }}
           />
+
+          {/* 🚩 Nút gắn cờ nổi trên video */}
+          <button
+            onClick={() => {
+              if (!videoRef.current || overlayActive) return;
+              if (navigator.vibrate) navigator.vibrate(80);
+              const t = Math.floor(videoRef.current.currentTime * 10) / 10;
+              handleScore(t);
+            }}
+            className="absolute bottom-3 right-3 sm:hidden bg-red-500 text-white font-semibold px-5 py-4 rounded-full shadow-lg active:scale-95 transition-all text-base landscape:bottom-5 landscape:right-5"
+            style={{ zIndex: 30, opacity: overlayActive ? 0.5 : 1 }}
+          >
+            🚩 Gắn cờ
+          </button>
 
           {/* 💡 Gợi ý hình ảnh */}
           {showHint && selected.hintImage && (
@@ -171,19 +204,17 @@ export default function SimulationRandom() {
 
         {/* 🎯 Thanh điểm */}
         <div className="relative w-full h-4 rounded-full overflow-hidden border border-gray-300 shadow-inner mb-3">
-          {getScoreSegments(selected.correctTimeStart, selected.correctTimeEnd).map(
-            (seg, idx) => (
-              <div
-                key={idx}
-                className="absolute top-0 h-full"
-                style={{
-                  left: `${(seg.start / selected.duration) * 100}%`,
-                  width: `${((seg.end - seg.start) / selected.duration) * 100}%`,
-                  backgroundColor: scoreColors[5 - seg.score],
-                }}
-              />
-            )
-          )}
+          {segments.map((seg, idx) => (
+            <div
+              key={idx}
+              className="absolute top-0 h-full"
+              style={{
+                left: `${(seg.start / selected.duration) * 100}%`,
+                width: `${((seg.end - seg.start) / selected.duration) * 100}%`,
+                backgroundColor: scoreColors[5 - seg.score],
+              }}
+            />
+          ))}
           {pressedTime && (
             <div
               className="absolute text-red-600 transform -translate-x-1/2"
@@ -196,33 +227,6 @@ export default function SimulationRandom() {
             </div>
           )}
         </div>
-
-        {/* 🚩 Nút gắn cờ luôn hiển thị trên mobile */}
-        <button
-          onClick={() => {
-            if (!videoRef.current || overlayActive) return;
-            const t = Math.floor(videoRef.current.currentTime * 10) / 10;
-            const s = getScoreSegments(
-              selected.correctTimeStart,
-              selected.correctTimeEnd
-            ).reduce(
-              (best, seg) =>
-                t >= seg.start && t <= seg.end ? Math.max(best, seg.score) : best,
-              0
-            );
-            setScore(s);
-            setPressedTime(t);
-            setTotalScore((prev) => prev + s);
-            if (s < 4) {
-              setShowHint(true);
-              setOverlayActive(true);
-              videoRef.current.pause();
-            }
-          }}
-          className="fixed bottom-4 right-4 z-50 sm:hidden bg-red-500 text-white font-semibold px-4 py-3 rounded-full shadow-lg active:scale-95"
-        >
-          🚩 Gắn cờ
-        </button>
 
         {/* 🔹 Nút tạo đề ngẫu nhiên mới */}
         <div className="flex justify-center mb-3">
