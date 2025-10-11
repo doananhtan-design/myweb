@@ -16,17 +16,15 @@ export default function SimulationFixedExam() {
     );
   }
 
-  // ✅ Lấy 10 câu đầu
   const questions = exam.questions.slice(0, 10);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(null);
   const [totalScore, setTotalScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [spaceDisabled, setSpaceDisabled] = useState(false);
-
   const selected = questions[currentIndex];
 
-  // ⌨️ Chấm điểm bằng phím cách
+  // ⌨️ Dùng hook chấm điểm
   useSpaceScore({
     videoRef,
     selected,
@@ -34,11 +32,11 @@ export default function SimulationFixedExam() {
       if (isFinished || spaceDisabled) return;
       setScore(s);
       setTotalScore((prev) => prev + s);
-      setSpaceDisabled(true); // ✅ Khóa phím sau khi bấm
+      setSpaceDisabled(true);
     },
   });
 
-  // ⏭ Chuyển video hoặc kết thúc
+  // ⏭ Chuyển câu
   const nextQuestion = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
@@ -49,10 +47,10 @@ export default function SimulationFixedExam() {
     }
   };
 
-  // 🏁 Kết thúc bài
+  // 🏁 Kết thúc
   const handleFinishExam = () => {
     setIsFinished(true);
-    if (videoRef.current) videoRef.current.pause();
+    videoRef.current?.pause();
   };
 
   // 🔁 Làm lại
@@ -60,14 +58,9 @@ export default function SimulationFixedExam() {
     setCurrentIndex(0);
     setScore(null);
     setTotalScore(0);
-    setSpaceDisabled(false);
     setIsFinished(false);
-    setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play();
-      }
-    }, 300);
+    setSpaceDisabled(false);
+    setTimeout(() => videoRef.current?.play(), 300);
   };
 
   // 🚫 Ẩn thanh điều khiển video
@@ -77,7 +70,7 @@ export default function SimulationFixedExam() {
     }
   }, [currentIndex]);
 
-  // ✅ Reset khi chuyển câu
+  // ✅ Reset trạng thái khi đổi câu
   useEffect(() => {
     setScore(null);
     setSpaceDisabled(false);
@@ -94,19 +87,15 @@ export default function SimulationFixedExam() {
   if (isFinished) {
     const maxScore = questions.length * 5;
     const passed = totalScore >= maxScore * 0.8;
-
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="bg-white shadow-lg rounded-2xl p-6 max-w-md text-center">
           <h2 className="text-2xl font-bold text-blue-700 mb-4">
             🎯 Kết quả thi - {exam.title}
           </h2>
-
-          {/* 🔴 Tổng điểm to, rõ */}
           <p className="text-4xl font-extrabold mb-3 text-red-600 drop-shadow-sm">
             {totalScore} / {maxScore}
           </p>
-
           {passed ? (
             <>
               <p className="text-2xl font-semibold text-green-600 mb-2">✅ ĐẠT</p>
@@ -118,11 +107,10 @@ export default function SimulationFixedExam() {
             <>
               <p className="text-2xl font-semibold text-red-600 mb-2">❌ CHƯA ĐẠT</p>
               <p className="text-lg text-gray-700 font-medium">
-                💪 Cần luyện tập thêm!
+                💪 Cần luyện thêm nhé!
               </p>
             </>
           )}
-
           <div className="flex flex-col sm:flex-row justify-center gap-3 mt-6">
             <button
               onClick={handleRestart}
@@ -142,7 +130,7 @@ export default function SimulationFixedExam() {
     );
   }
 
-  // ✅ Giao diện khi đang thi
+  // ✅ Trang thi
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6 relative">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-2xl p-6 relative">
@@ -154,7 +142,7 @@ export default function SimulationFixedExam() {
           Câu {currentIndex + 1}/{questions.length}
         </div>
 
-        {/* 🎬 Video (ẩn thanh điều khiển) */}
+        {/* 🎬 Video */}
         <div className="relative overflow-hidden rounded-xl">
           <video
             ref={videoRef}
@@ -165,39 +153,47 @@ export default function SimulationFixedExam() {
             className="w-full select-none pointer-events-none"
           />
 
-          {/* 🚩 Nút GẮN CỜ — góc phải dưới video (mobile only) */}
+          {/* 🚩 Nút GẮN CỜ (mobile + ngang) */}
           {!isFinished && (
             <button
               onClick={() => {
                 if (isFinished || spaceDisabled) return;
                 const currentTime = videoRef.current?.currentTime || 0;
                 console.log("🚩 Gắn cờ tại", currentTime.toFixed(1), "s");
-
-                // ✅ Giả lập nhấn phím cách
-                if (typeof window.dispatchEvent === "function") {
-                  const event = new KeyboardEvent("keydown", { code: "Space" });
-                  window.dispatchEvent(event);
-                }
+                const event = new KeyboardEvent("keydown", { code: "Space" });
+                window.dispatchEvent(event);
               }}
-              className="absolute bottom-3 right-3 bg-red-600 text-white px-4 py-2 text-lg rounded-full shadow-lg active:scale-95 transition-transform sm:hidden"
+              className="mobile-flag z-50 fixed bottom-4 right-4 bg-red-600 text-white px-5 py-3 text-xl rounded-full shadow-xl active:scale-95 transition-transform"
             >
               🚩
             </button>
           )}
         </div>
 
-        {/* 🟢 Hiện “+x điểm” sau khi gắn cờ */}
+        {/* ✅ Hiện điểm */}
         {score !== null && (
           <div className="text-center text-2xl font-bold mt-4 text-green-600 drop-shadow-sm">
             ✅ Bạn được +{score} điểm
           </div>
         )}
 
-        {/* 🔢 Tổng điểm hiện tại */}
+        {/* 🔢 Tổng điểm */}
         <div className="text-center text-3xl font-extrabold text-red-600 mt-6 drop-shadow-sm">
           Tổng điểm hiện tại: {totalScore} / {questions.length * 5}
         </div>
       </div>
+
+      {/* ⚙️ Style riêng cho xoay ngang mobile */}
+      <style>{`
+        @media (orientation: landscape) {
+          .mobile-flag {
+            position: fixed !important;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 9999 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
