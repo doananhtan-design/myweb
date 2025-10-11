@@ -6,7 +6,6 @@ export default function SimulationFixedExam() {
   const location = useLocation();
   const videoRef = useRef(null);
 
-  // ✅ Lấy đề được chọn
   const exam = location.state?.exam;
   if (!exam) {
     return (
@@ -36,7 +35,6 @@ export default function SimulationFixedExam() {
     },
   });
 
-  // ⏭ Chuyển câu
   const nextQuestion = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
@@ -47,13 +45,11 @@ export default function SimulationFixedExam() {
     }
   };
 
-  // 🏁 Kết thúc
   const handleFinishExam = () => {
     setIsFinished(true);
     videoRef.current?.pause();
   };
 
-  // 🔁 Làm lại
   const handleRestart = () => {
     setCurrentIndex(0);
     setScore(null);
@@ -63,14 +59,12 @@ export default function SimulationFixedExam() {
     setTimeout(() => videoRef.current?.play(), 300);
   };
 
-  // 🚫 Ẩn thanh điều khiển video
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.controls = false;
     }
   }, [currentIndex]);
 
-  // ✅ Reset trạng thái khi đổi câu
   useEffect(() => {
     setScore(null);
     setSpaceDisabled(false);
@@ -83,7 +77,6 @@ export default function SimulationFixedExam() {
       </div>
     );
 
-  // ✅ Trang kết quả
   if (isFinished) {
     const maxScore = questions.length * 5;
     const passed = totalScore >= maxScore * 0.8;
@@ -130,7 +123,6 @@ export default function SimulationFixedExam() {
     );
   }
 
-  // ✅ Trang thi
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6 relative">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-2xl p-6 relative">
@@ -142,18 +134,19 @@ export default function SimulationFixedExam() {
           Câu {currentIndex + 1}/{questions.length}
         </div>
 
-        {/* 🎬 Video */}
+        {/* 🎬 VIDEO + NÚT GẮN CỜ */}
         <div className="relative overflow-hidden rounded-xl">
           <video
             ref={videoRef}
             src={selected.videos ? `/${selected.videos}` : ""}
             autoPlay
+            playsInline
             onEnded={nextQuestion}
             onLoadedData={() => videoRef.current?.play()}
-            className="w-full select-none pointer-events-none"
+            className="w-full select-none"
           />
 
-          {/* 🚩 Nút GẮN CỜ (mobile + ngang) */}
+          {/* 🚩 Nút GẮN CỜ - hiển thị mọi lúc trên mobile */}
           {!isFinished && (
             <button
               onClick={() => {
@@ -163,33 +156,35 @@ export default function SimulationFixedExam() {
                 const event = new KeyboardEvent("keydown", { code: "Space" });
                 window.dispatchEvent(event);
               }}
-              className="mobile-flag z-50 fixed bottom-4 right-4 bg-red-600 text-white px-5 py-3 text-xl rounded-full shadow-xl active:scale-95 transition-transform"
+              className="absolute bottom-4 right-4 bg-red-600 text-white px-5 py-3 text-xl rounded-full shadow-xl active:scale-95 transition-transform z-50"
+              style={{
+                opacity: 0.9,
+              }}
             >
               🚩
             </button>
           )}
         </div>
 
-        {/* ✅ Hiện điểm */}
+        {/* ✅ Điểm hiện tại */}
         {score !== null && (
           <div className="text-center text-2xl font-bold mt-4 text-green-600 drop-shadow-sm">
             ✅ Bạn được +{score} điểm
           </div>
         )}
 
-        {/* 🔢 Tổng điểm */}
         <div className="text-center text-3xl font-extrabold text-red-600 mt-6 drop-shadow-sm">
           Tổng điểm hiện tại: {totalScore} / {questions.length * 5}
         </div>
       </div>
 
-      {/* ⚙️ Style riêng cho xoay ngang mobile */}
+      {/* CSS hỗ trợ xoay ngang mobile */}
       <style>{`
         @media (orientation: landscape) {
-          .mobile-flag {
+          button.absolute {
             position: fixed !important;
-            bottom: 1rem;
-            right: 1rem;
+            bottom: 1rem !important;
+            right: 1rem !important;
             z-index: 9999 !important;
           }
         }
