@@ -167,33 +167,31 @@ export default function SimulationTopicDetail() {
           {selected.title}
         </h2>
 
-      {/* 🎬 Video */}
-{selected.video ? (
-  <div className="relative w-full rounded-2xl overflow-hidden shadow-lg mb-4">
-    <video
-      key={currentIndex}
-      ref={videoRef}
-      src={`/${selected.video}`}
-      controls
-      autoPlay
-      playsInline
-      webkit-playsinline="true"
-      onEnded={() => {
-        if (autoNext && currentIndex < questions.length - 1) {
-          nextQuestion();
-        }
-      }}
-      className="w-full h-auto max-h-[80vh] object-contain sm:rounded-lg"
-      style={{
-        aspectRatio: "16 / 9",
-      }}
-    />
-  </div>
-) : (
-  <div className="text-center text-red-500 my-4">
-    ❌ Thiếu video cho câu này
-  </div>
-)}
+        {/* 🎬 VIDEO TO HƠN TRÊN MOBILE */}
+        {selected.video ? (
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-lg mb-4">
+            <video
+              key={currentIndex}
+              ref={videoRef}
+              src={`/${selected.video}`}
+              controls
+              autoPlay
+              playsInline
+              webkit-playsinline="true"
+              onEnded={() => {
+                if (autoNext && currentIndex < questions.length - 1) {
+                  nextQuestion();
+                }
+              }}
+              className="w-full h-auto max-h-[80vh] object-contain sm:rounded-lg"
+              style={{ aspectRatio: "16 / 9" }}
+            />
+          </div>
+        ) : (
+          <div className="text-center text-red-500 my-4">
+            ❌ Thiếu video cho câu này
+          </div>
+        )}
 
         {/* 💡 Gợi ý hình ảnh */}
         {showHint && selected.hintImage && (
@@ -232,7 +230,6 @@ export default function SimulationTopicDetail() {
               />
             )
           )}
-
           {pressedTime && (
             <div
               className="absolute text-red-600 transform -translate-x-1/2"
