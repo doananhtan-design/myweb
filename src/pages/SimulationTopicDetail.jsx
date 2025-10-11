@@ -8,7 +8,6 @@ import {
   useSpaceScore,
 } from "../utils/scoreUtils";
 
-// ✅ Bộ lọc nhóm chuyên đề
 const groupFilters = {
   "toan-bo": (q) => true,
   "phanh-xe": (q) =>
@@ -29,7 +28,6 @@ const groupFilters = {
     q.description?.toLowerCase().includes("bất ngờ"),
 };
 
-// ✅ Tên hiển thị chuyên đề
 const topicTitles = {
   "toan-bo": "Luyện tập toàn bộ",
   "phanh-xe": "Nhóm Phanh xe",
@@ -44,7 +42,6 @@ export default function SimulationTopicDetail() {
   const videoRef = useRef(null);
   const [allowRePress, setAllowRePress] = useState(false);
 
-  // 🧩 Lọc danh sách câu hỏi
   const questions = useMemo(() => {
     if (name === "toan-bo") {
       if (chapter) {
@@ -55,20 +52,8 @@ export default function SimulationTopicDetail() {
       return simulationQuestions;
     } else if (groupFilters[name]) {
       return simulationQuestions.filter(groupFilters[name]);
-    } else {
-      const categoryMap = {
-        "do-thi": "Đô thị",
-        "ngoai-do-thi": "Ngoài đô thị",
-        "cao-toc": "Cao tốc",
-        "doi-nui": "Đồi núi",
-        "quoc-lo": "Quốc lộ",
-        "tai-nan": "Tai nạn",
-      };
-      const categoryName = categoryMap[name];
-      return categoryName
-        ? simulationQuestions.filter((q) => q.category === categoryName)
-        : [];
     }
+    return [];
   }, [name, chapter]);
 
   const title =
@@ -76,7 +61,6 @@ export default function SimulationTopicDetail() {
       ? `Luyện tập toàn bộ - Chương ${chapter}`
       : topicTitles[name] || "Chủ đề không xác định";
 
-  // 🧮 Trạng thái
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(null);
   const [pressedTime, setPressedTime] = useState(null);
@@ -88,7 +72,6 @@ export default function SimulationTopicDetail() {
 
   const selected = questions[currentIndex];
 
-  // 🎯 Gắn cờ điểm bằng phím cách
   useSpaceScore({
     videoRef,
     selected,
@@ -97,13 +80,12 @@ export default function SimulationTopicDetail() {
       if (overlayActive) return;
       setScore(s);
       setPressedTime(t);
-      setTotalScore((prev) => prev + s);
-
+      setTotalScore((p) => p + s);
       if (s < 4) {
         setShowHint(true);
         setOverlayActive(true);
-        setLowScoreQuestions((prev) => [
-          ...prev,
+        setLowScoreQuestions((p) => [
+          ...p,
           { ...selected, index: currentIndex, score: s },
         ]);
         videoRef.current.pause();
@@ -123,7 +105,7 @@ export default function SimulationTopicDetail() {
 
   const nextQuestion = () => {
     if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
+      setCurrentIndex((p) => p + 1);
       resetStateCurrent();
       setTimeout(() => {
         if (videoRef.current) {
@@ -153,9 +135,9 @@ export default function SimulationTopicDetail() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 relative">
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-2xl p-6 relative">
-        <h1 className="text-xl sm:text-2xl font-bold text-center text-blue-700 mb-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-3 sm:p-6">
+        <h1 className="text-lg sm:text-2xl font-bold text-center text-blue-700 mb-2">
           🎥 {title}
         </h1>
 
@@ -163,13 +145,13 @@ export default function SimulationTopicDetail() {
           Câu {currentIndex + 1}/{questions.length}
         </div>
 
-        <h2 className="text-lg font-semibold text-gray-800 mb-2">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">
           {selected.title}
         </h2>
 
-        {/* 🎬 VIDEO TO HƠN TRÊN MOBILE */}
+        {/* 🎬 VIDEO TO GẤP ĐÔI VÀ TƯƠNG THÍCH MOBILE */}
         {selected.video ? (
-          <div className="relative w-full rounded-2xl overflow-hidden shadow-lg mb-4">
+          <div className="relative w-full overflow-hidden rounded-xl shadow-lg mb-3">
             <video
               key={currentIndex}
               ref={videoRef}
@@ -178,28 +160,24 @@ export default function SimulationTopicDetail() {
               autoPlay
               playsInline
               webkit-playsinline="true"
+              className="w-full h-auto max-h-[90vh] object-contain rounded-xl"
+              style={{ aspectRatio: "16/9" }}
               onEnded={() => {
-                if (autoNext && currentIndex < questions.length - 1) {
-                  nextQuestion();
-                }
+                if (autoNext && currentIndex < questions.length - 1) nextQuestion();
               }}
-              className="w-full h-auto max-h-[80vh] object-contain sm:rounded-lg"
-              style={{ aspectRatio: "16 / 9" }}
             />
           </div>
         ) : (
-          <div className="text-center text-red-500 my-4">
-            ❌ Thiếu video cho câu này
-          </div>
+          <div className="text-center text-red-500 my-4">❌ Thiếu video cho câu này</div>
         )}
 
-        {/* 💡 Gợi ý hình ảnh */}
+        {/* Gợi ý */}
         {showHint && selected.hintImage && (
           <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
             <img
               src={`/${selected.hintImage}`}
               alt="Hint"
-              className="max-h-[70%] rounded-lg shadow-lg border border-white"
+              className="max-h-[80%] rounded-lg shadow-lg border border-white"
             />
             <button
               onClick={() => {
@@ -207,15 +185,15 @@ export default function SimulationTopicDetail() {
                 setOverlayActive(false);
                 videoRef.current.play();
               }}
-              className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+              className="mt-4 bg-green-600 text-white px-3 py-2 rounded-md text-sm"
             >
               ✅ Đã hiểu
             </button>
           </div>
         )}
 
-        {/* 🎯 Thanh màu điểm */}
-        <div className="relative w-full h-5 rounded-full overflow-hidden border border-gray-300 shadow-inner mb-4">
+        {/* Thanh điểm */}
+        <div className="relative w-full h-4 rounded-full overflow-hidden border border-gray-300 shadow-inner mb-3">
           {getScoreSegments(selected.correctTimeStart, selected.correctTimeEnd).map(
             (seg, idx) => (
               <div
@@ -226,7 +204,6 @@ export default function SimulationTopicDetail() {
                   width: `${((seg.end - seg.start) / selected.duration) * 100}%`,
                   backgroundColor: scoreColors[5 - seg.score],
                 }}
-                title={`${seg.score} điểm`}
               />
             )
           )}
@@ -235,7 +212,6 @@ export default function SimulationTopicDetail() {
               className="absolute text-red-600 transform -translate-x-1/2"
               style={{
                 top: 0,
-                fontSize: "1rem",
                 left: `${getFlagPositionPercent(
                   pressedTime,
                   selected.duration
@@ -247,128 +223,108 @@ export default function SimulationTopicDetail() {
           )}
         </div>
 
-        {/* 🎮 Điều khiển */}
-        <div className="flex flex-wrap justify-between gap-2 mb-4">
+        {/* Nút điều khiển nhỏ gọn */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4 text-sm">
           <button
             onClick={nextQuestion}
             disabled={overlayActive}
-            className="flex-1 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition disabled:opacity-50"
+            className="bg-green-500 text-white px-2 py-2 rounded-md hover:bg-green-600"
           >
-            Câu tiếp
+            ▶️ Tiếp
           </button>
-
           <button
-            onClick={() => setAutoNext((prev) => !prev)}
-            disabled={overlayActive}
-            className={`flex-1 px-4 py-2 rounded-lg transition ${
-              autoNext ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"
-            } disabled:opacity-50`}
+            onClick={() => setAutoNext((p) => !p)}
+            className={`px-2 py-2 rounded-md ${
+              autoNext ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"
+            }`}
           >
-            {autoNext ? "⏸ Dừng tự chạy" : "▶️ Tự chạy"}
+            {autoNext ? "⏸ Dừng" : "▶️ Tự"}
           </button>
-
           <button
             onClick={() => {
               resetStateCurrent();
               setAllowRePress(true);
-              if (videoRef.current) {
-                videoRef.current.currentTime = 0;
-                videoRef.current.play();
-              }
+              videoRef.current.currentTime = 0;
+              videoRef.current.play();
             }}
-            className="flex-1 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            className="bg-gray-500 text-white px-2 py-2 rounded-md hover:bg-gray-600"
           >
-            🔁 Làm lại
+            🔁 Lại
           </button>
-
           <button
             onClick={() => {
               setShowHint(true);
               setOverlayActive(true);
               videoRef.current.pause();
             }}
-            className="flex-1 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition"
+            className="bg-yellow-500 text-white px-2 py-2 rounded-md hover:bg-yellow-600"
           >
             💡 Gợi ý
           </button>
-
-          {/* 🚩 Nút gắn cờ cho mobile */}
           <button
             onClick={() => {
               if (!videoRef.current || overlayActive) return;
-              const currentTime = Math.floor(videoRef.current.currentTime * 10) / 10;
+              const t = Math.floor(videoRef.current.currentTime * 10) / 10;
               const s = getScoreSegments(
                 selected.correctTimeStart,
                 selected.correctTimeEnd
-              ).reduce((best, seg) => {
-                return currentTime >= seg.start && currentTime <= seg.end
-                  ? Math.max(best, seg.score)
-                  : best;
-              }, 0);
-
+              ).reduce(
+                (best, seg) =>
+                  t >= seg.start && t <= seg.end ? Math.max(best, seg.score) : best,
+                0
+              );
               setScore(s);
-              setPressedTime(currentTime);
-              setTotalScore((prev) => prev + s);
-
+              setPressedTime(t);
+              setTotalScore((p) => p + s);
               if (s < 4) {
                 setShowHint(true);
                 setOverlayActive(true);
-                setLowScoreQuestions((prev) => [
-                  ...prev,
-                  { ...selected, index: currentIndex, score: s },
-                ]);
                 videoRef.current.pause();
               } else if (autoNext && currentIndex < questions.length - 1) {
-                setTimeout(() => nextQuestion(), 2500);
+                setTimeout(() => nextQuestion(), 2000);
               }
             }}
-            className="sm:hidden flex-1 bg-red-500 text-white text-lg font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-600 active:scale-95 transition"
+            className="bg-red-500 text-white font-semibold px-2 py-2 rounded-md hover:bg-red-600"
           >
-            🚩 Gắn cờ (Space)
+            🚩 Gắn cờ
           </button>
         </div>
 
-        {/* 🧮 Kết quả */}
+        {/* Kết quả */}
         {score !== null && (
           <div
-            className={`text-center text-xl font-bold mb-4 ${
+            className={`text-center text-base font-bold mb-2 ${
               score > 0 ? "text-green-600" : "text-red-600"
             }`}
           >
-            🚩 Bạn bấm tại {pressedTime}s → {score} điểm
+            🚩 Bấm tại {pressedTime}s → {score} điểm
           </div>
         )}
 
-        <div className="text-center text-gray-500 mt-2">
+        <div className="text-center text-gray-600 mb-4">
           Tổng điểm: {totalScore} / {questions.length * 5}
         </div>
 
-        {/* ⚠️ Câu chưa đạt */}
         {lowScoreQuestions.length > 0 && (
-          <div className="mt-6 bg-yellow-50 p-3 rounded-lg">
-            <h3 className="font-semibold text-yellow-800 mb-2">
-              ⚠️ Các câu cần luyện thêm:
+          <div className="bg-yellow-50 p-3 rounded-lg text-sm">
+            <h3 className="font-semibold text-yellow-800 mb-1">
+              ⚠️ Câu cần luyện thêm:
             </h3>
-            <ul className="list-disc list-inside space-y-1 text-sm">
-              {lowScoreQuestions.map((q) => (
-                <li
-                  key={q.index}
-                  className="cursor-pointer hover:underline"
-                  onClick={() => handleRedoQuestion(q)}
-                >
-                  {q.title} → {q.score} điểm
-                </li>
-              ))}
-            </ul>
+            {lowScoreQuestions.map((q) => (
+              <p
+                key={q.index}
+                className="cursor-pointer hover:underline"
+                onClick={() => handleRedoQuestion(q)}
+              >
+                {q.title} → {q.score} điểm
+              </p>
+            ))}
           </div>
         )}
 
-        <div className="text-center mt-8">
-          <Link
-            to="/simulation/topics"
-            className="text-gray-600 hover:text-gray-800 underline"
-          >
-            ← Quay lại danh sách chủ đề
+        <div className="text-center mt-4">
+          <Link to="/simulation/topics" className="text-gray-600 underline text-sm">
+            ← Quay lại danh sách
           </Link>
         </div>
       </div>
