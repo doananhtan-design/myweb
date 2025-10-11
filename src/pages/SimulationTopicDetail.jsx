@@ -244,11 +244,11 @@ export default function SimulationTopicDetail() {
         </div>
 
         {/* 🎮 Điều khiển */}
-        <div className="flex justify-between mb-4 gap-2">
+        <div className="flex flex-wrap justify-between gap-2 mb-4">
           <button
             onClick={nextQuestion}
             disabled={overlayActive}
-            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition disabled:opacity-50"
+            className="flex-1 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition disabled:opacity-50"
           >
             Câu tiếp
           </button>
@@ -256,14 +256,13 @@ export default function SimulationTopicDetail() {
           <button
             onClick={() => setAutoNext((prev) => !prev)}
             disabled={overlayActive}
-            className={`px-4 py-2 rounded-lg transition ${
+            className={`flex-1 px-4 py-2 rounded-lg transition ${
               autoNext ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"
             } disabled:opacity-50`}
           >
             {autoNext ? "⏸ Dừng tự chạy" : "▶️ Tự chạy"}
           </button>
 
-          {/* 🔁 Làm lại câu hiện tại (cho phép gắn cờ lại) */}
           <button
             onClick={() => {
               resetStateCurrent();
@@ -273,7 +272,7 @@ export default function SimulationTopicDetail() {
                 videoRef.current.play();
               }
             }}
-            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            className="flex-1 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
           >
             🔁 Làm lại
           </button>
@@ -284,9 +283,44 @@ export default function SimulationTopicDetail() {
               setOverlayActive(true);
               videoRef.current.pause();
             }}
-            className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition"
+            className="flex-1 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition"
           >
             💡 Gợi ý
+          </button>
+
+          {/* 🚩 Nút gắn cờ cho mobile */}
+          <button
+            onClick={() => {
+              if (!videoRef.current || overlayActive) return;
+              const currentTime = Math.floor(videoRef.current.currentTime * 10) / 10;
+              const s = getScoreSegments(
+                selected.correctTimeStart,
+                selected.correctTimeEnd
+              ).reduce((best, seg) => {
+                return currentTime >= seg.start && currentTime <= seg.end
+                  ? Math.max(best, seg.score)
+                  : best;
+              }, 0);
+
+              setScore(s);
+              setPressedTime(currentTime);
+              setTotalScore((prev) => prev + s);
+
+              if (s < 4) {
+                setShowHint(true);
+                setOverlayActive(true);
+                setLowScoreQuestions((prev) => [
+                  ...prev,
+                  { ...selected, index: currentIndex, score: s },
+                ]);
+                videoRef.current.pause();
+              } else if (autoNext && currentIndex < questions.length - 1) {
+                setTimeout(() => nextQuestion(), 2500);
+              }
+            }}
+            className="sm:hidden flex-1 bg-red-500 text-white text-lg font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-600 active:scale-95 transition"
+          >
+            🚩 Gắn cờ (Space)
           </button>
         </div>
 
