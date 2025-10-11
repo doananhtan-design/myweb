@@ -1,17 +1,37 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import simulationQuestions from "../data/simulationQuestions.json";
 import {
   getScoreSegments,
-  getFlagPositionPercent,
-  scoreColors,
   useSpaceScore,
 } from "../utils/scoreUtils";
 
 export default function SimulationFixedExam() {
   const { id } = useParams();
   const examId = parseInt(id);
-  const exam = simulationQuestions.exams.find((e) => e.id === examId);
+
+  // ✅ Kiểm tra có dữ liệu đề không
+  const exam = simulationQuestions?.exams?.find?.((e) => e.id === examId);
+
+  // Nếu không có đề, trả thông báo đẹp
+  if (!exam) {
+    return (
+      <div className="p-5 text-center text-gray-700">
+        <h2 className="text-lg font-semibold text-red-500">
+          ❌ Không tìm thấy đề thi!
+        </h2>
+        <p className="mt-2 text-sm text-gray-500">
+          Hãy quay lại danh sách đề và chọn lại.
+        </p>
+        <Link
+          to="/simulation"
+          className="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
+        >
+          ⏪ Quay lại danh sách đề
+        </Link>
+      </div>
+    );
+  }
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
@@ -19,13 +39,23 @@ export default function SimulationFixedExam() {
   const [score, setScore] = useState(null);
   const [showHint, setShowHint] = useState(false);
   const [overlayActive, setOverlayActive] = useState(false);
-
   const videoRef = useRef(null);
-  const { selected, setSelected } = useSpaceScore(exam.questions);
 
-  const currentQuestion = exam.questions[currentIndex];
+  const currentQuestion = exam.questions?.[currentIndex];
+  if (!currentQuestion) {
+    return (
+      <div className="p-5 text-center text-gray-700">
+        <p>⚠️ Đề này chưa có câu hỏi nào!</p>
+        <Link
+          to="/simulation"
+          className="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
+        >
+          ⏪ Quay lại danh sách đề
+        </Link>
+      </div>
+    );
+  }
 
-  // Khi video kết thúc -> tự chuyển câu
   const handleVideoEnded = () => {
     if (currentIndex < exam.questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
@@ -40,7 +70,7 @@ export default function SimulationFixedExam() {
 
   return (
     <div className="p-3 max-w-3xl mx-auto">
-      {/* 🔹 Tiêu đề và điểm */}
+      {/* 🔹 Tiêu đề */}
       <div className="flex items-center justify-between mb-3">
         <h1 className="text-lg font-semibold text-gray-800">
           Đề {exam.id}: {exam.title}
@@ -50,7 +80,7 @@ export default function SimulationFixedExam() {
         </span>
       </div>
 
-      {/* 🎬 VIDEO + NÚT GẮN CỜ */}
+      {/* 🎬 Video + nút gắn cờ */}
       <div className="relative">
         <video
           ref={videoRef}
@@ -64,7 +94,7 @@ export default function SimulationFixedExam() {
           style={{ aspectRatio: "16/9" }}
         />
 
-        {/* 🚩 Nút gắn cờ (luôn hiện cả khi xoay ngang) */}
+        {/* 🚩 Nút gắn cờ chạy mượt cả khi xoay ngang */}
         <button
           onTouchStart={(e) => {
             e.preventDefault();
@@ -101,7 +131,7 @@ export default function SimulationFixedExam() {
           🚩
         </button>
 
-        {/* 💡 Gợi ý hình ảnh khi sai */}
+        {/* 💡 Gợi ý hình ảnh */}
         {showHint && currentQuestion.hintImage && (
           <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
             <img
@@ -123,7 +153,7 @@ export default function SimulationFixedExam() {
         )}
       </div>
 
-      {/* 📊 Hiển thị điểm từng câu */}
+      {/* 📊 Thông tin điểm */}
       <div className="flex items-center justify-between mt-4 text-sm">
         <span className="text-gray-600">
           Câu {currentIndex + 1} / {exam.questions.length}
@@ -139,18 +169,15 @@ export default function SimulationFixedExam() {
         )}
       </div>
 
-      {/* 🔘 Nút điều hướng câu */}
+      {/* 🔘 Nút điều hướng */}
       <div className="flex justify-between mt-3">
         <button
-          onClick={() =>
-            setCurrentIndex((prev) => Math.max(prev - 1, 0))
-          }
+          onClick={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
           disabled={currentIndex === 0}
           className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-40"
         >
           ⬅ Trước
         </button>
-
         <button
           onClick={() =>
             setCurrentIndex((prev) =>
@@ -164,7 +191,6 @@ export default function SimulationFixedExam() {
         </button>
       </div>
 
-      {/* 🔁 Quay lại chọn đề */}
       <div className="mt-6 text-center">
         <Link
           to="/simulation"
