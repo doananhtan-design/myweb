@@ -91,7 +91,7 @@ export default function SimulationRandom() {
       setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.currentTime = 0;
-          videoRef.current.play();
+          videoRef.current.play().catch(() => {});
         }
       }, 300);
     }
@@ -106,7 +106,7 @@ export default function SimulationRandom() {
     setTimeout(() => {
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play();
+        videoRef.current.play().catch(() => {});
       }
     }, 300);
   };
@@ -133,7 +133,7 @@ export default function SimulationRandom() {
           {selected.title}
         </h2>
 
-        {/* 🎬 Video (to hơn + tương thích mobile landscape) */}
+        {/* 🎬 Video */}
         <div className="relative">
           <video
             ref={videoRef}
@@ -147,7 +147,7 @@ export default function SimulationRandom() {
             style={{ aspectRatio: "16/9" }}
           />
 
-          {/* 💡 Gợi ý hình ảnh */}
+          {/* 💡 Gợi ý */}
           {showHint && selected.hintImage && (
             <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
               <img
@@ -159,7 +159,7 @@ export default function SimulationRandom() {
                 onClick={() => {
                   setShowHint(false);
                   setOverlayActive(false);
-                  videoRef.current.play();
+                  videoRef.current.play().catch(() => {});
                 }}
                 className="mt-4 bg-green-600 text-white px-3 py-2 rounded-lg text-sm"
               >
@@ -197,29 +197,35 @@ export default function SimulationRandom() {
           )}
         </div>
 
-        {/* 🚩 Nút gắn cờ luôn hiển thị trên mobile */}
+        {/* 🚩 Nút gắn cờ mượt trên mobile */}
         <button
-          onClick={() => {
+          onTouchStart={(e) => {
+            e.preventDefault();
             if (!videoRef.current || overlayActive) return;
-            const t = Math.floor(videoRef.current.currentTime * 10) / 10;
-            const s = getScoreSegments(
-              selected.correctTimeStart,
-              selected.correctTimeEnd
-            ).reduce(
-              (best, seg) =>
-                t >= seg.start && t <= seg.end ? Math.max(best, seg.score) : best,
-              0
-            );
-            setScore(s);
-            setPressedTime(t);
-            setTotalScore((prev) => prev + s);
-            if (s < 4) {
-              setShowHint(true);
-              setOverlayActive(true);
-              videoRef.current.pause();
-            }
+
+            requestAnimationFrame(() => {
+              const t = Math.round(videoRef.current.currentTime * 10) / 10;
+              const s = getScoreSegments(
+                selected.correctTimeStart,
+                selected.correctTimeEnd
+              ).reduce(
+                (best, seg) =>
+                  t >= seg.start && t <= seg.end ? Math.max(best, seg.score) : best,
+                0
+              );
+
+              setScore(s);
+              setPressedTime(t);
+              setTotalScore((prev) => prev + s);
+
+              if (s < 4) {
+                setShowHint(true);
+                setOverlayActive(true);
+                videoRef.current.pause();
+              }
+            });
           }}
-          className="fixed bottom-4 right-4 z-50 sm:hidden bg-red-500 text-white font-semibold px-4 py-3 rounded-full shadow-lg active:scale-95"
+          className="fixed bottom-4 right-4 z-50 sm:hidden bg-red-500 text-white font-semibold px-4 py-3 rounded-full shadow-lg active:scale-95 transition-transform duration-100"
         >
           🚩 Gắn cờ
         </button>
@@ -245,7 +251,11 @@ export default function SimulationRandom() {
           </div>
         )}
 
-        <div className="text-center text-gray-600 mb-3 text-sm sm:text-base">
+        <div
+          className={`text-center font-semibold mb-3 ${
+            totalScore >= passingScore ? "text-green-600" : "text-red-600"
+          }`}
+        >
           Tổng điểm: {totalScore} / {questions.length * 5}
         </div>
 
