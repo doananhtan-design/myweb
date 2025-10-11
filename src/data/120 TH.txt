@@ -1,0 +1,121 @@
+Tình huống số 1- Người đi bộ sang đường bị khuất sau xe tải - 17,5-20,4-27
+Tình huống số 2- Người đi bộ vượt đền đỏ sang đường - 24,7-27-40
+Tình huống số 3- Xe phía trước phanh gấp để tránh xe buýt đang dừng tại bến xe buýt -22-24,7-34
+Tình huống số 4- Xe con từ đường nhanh đi nhanh ra tại ngã ba không có đèn tính hiệu giao thông -17,5-22-34
+Tình huống số 5- Xe máy đang đi thẳng, đột ngột rẻ trái sang đường trước đầu xe bạn - 19-23,2-33
+Tình huống số 6- Xe buýt lấn làn để vượt tại ngã ba - 19.9-23-30
+Tình huống số 7- Xe phía trước phanh gấp tránh người đi bộ vượt đèn đỏ sang đường -17,3-21,9-33
+Tình huống số 8- Xe đạp bất ngờ đi ra từ đường nhanh tại ngã ba - 17.3-20,4-34
+Tình huống số 9- Xe ô tô làn đường đối diện lấn làn vượt xe tải đang dừng đõ tại khu vực đông đúc - 14.9-17.9-23
+Tình huống số 10- Xe ô tô bất ngờ đi nhanh ra từ đường nhanh bên trái tại ngã ba - 18.8-23-31
+Tình huống số 11- Xe bồn bê tông từ đường nhanh lấn làn để rẽ tại ngã ba không có đèn giao thông có nhiều xe đang dừng đỗ - 17-24.2-33
+Tình huống số 12- Xe mô tô lấn làn vượt ẩu nguy hiểm tại giao lộ -20.1-22.5-37
+Tình huống số 13- Người đi xe đạp từ vỉa hè bất ngờ đi xuống đường để sang đường -18-20.4-30
+Tình huống số 14- Tình huống nguy hiểm khi gặp xe t ải lớn đi qua hầm chui dân sinh - 20.8-24.8-34
+Tình huống số 15- Xe phía trước phanh gấp để tránh xe chuyển làn rẽ trái tại ngã ba - 19.9-22.5-33
+Tình huống số 16- Xe ô tô từ đường nhanh bên trái bất ngờ đi nhanh ra có nguy cơ va chạm với xe bạn - 17.6-20.6-16
+Tình huống số 17- Xe buýt lấn làn đường vượt ẩu tại ngã tư có đèn giao thông - 15.3-17.7-29
+Tình huống số 18- Gặp tài xế xe đang dừng đỗ ven đường đột ngột mở cửa xe - 17.9-21.5-31
+Tình huống số 19- Tài xế xe dừng bên đường đang mở cửa xe - 19.3-22.1-29
+Tình huống số 20- Tài xế xe đang đỗ ven đường đi ra mở cửa xe tại khu vực đường hẹp - 25.3-28.9-37
+Tình huống số 21- Xe ô tô phía dừng lại và lùi vào nơi đỗ tại khu vực đường hẹp - 20-23.6-39
+Tình huống số 22- Gặp xe ô tô từ đường nhánh bên phải tại ngã ba đi ra với tốc độ nhanh - 19.9-22.8-33
+Tình huống số 23- Xe ô tô đối diện lấn làn vượt xe đang có tín hiệu dừng khẩn cấp - 21.9-24.6-33
+Tình huống số 24- Xe tải lớn ở làn đối diện lấn làn vượt xe đang thu gom rác - 20.5-23.6-34
+Tình huống số 25- Xe ô tô khách bất ngờ đi ra từ nơi đỗ tại đường hẹp - 17.5-25-45
+Tình huống số 26- Tránh xe tại khu vực công trình sửa đường xuất hiện sau khúc cua - 19.6-24.4-26
+Tình huống số 27- Xe khách bật đèn cảnh báo dường giữa ngã tư để đón khách - 21.1-24.1-36
+Tình huống số 28- Xe ô tô phía trước đang đi, đột ngột phan gấp khi gặp vũng nước trên đường - 18.8-22.1-36
+Tình huống số 29- Trời mưa, ô tô phía trước phanh gấp để tránh xe mô-tô tạt đầu khi gặp chướng ngại vật - 18.8-22.1-34
+Tình huống số 30- Đường nông thôn, xe đi gặp đàn bò đang đứng trên đường - 17.7-22.5-37
+Tình huống số 31- Đường nông thôn, gặp đàn bò đi từ dưới vệ đường bang qua đường - 16.5-21.5-38
+Tình huống số 32- Người đi bộ bang qua đường lúc chập tối ngay trước xe bạn - 18.4-22.3-29
+Tình huống số 33- Học sinh đi ra đường tại khu vực gần trường học - 19.2-22.5-33
+Tình huống số 34- Gặp xe khách tại đoạn đường cong vào cua chiếm hết làn đường tại khu vực đường hẹp - 15.2-19.4-27
+Tình huống số 35- Xe khách phía trước đột ngột phanh giảm tốc độ tránh xe dối diện tại đoạn đường cong - 13.2-16.3-28
+Tình huống số 36- Đường nông thôn, xuất hiện xe máy đi ra từ ngõ bên phải - 23.7-26.1-34
+Tình huống số 37- Đường nông thôn, nhóm xe đạp đi ra từ ngõ bên phải - 24.6-27.5-36
+Tình huống số 38- Ban đêm xe ô tô tải ngược chiều bật đèn chiếu xa làm 2 xe máy phía trước giảm tốc độ - 18.2-21.3-33
+Tình huống số 39- Xe tải từ đường nhánh nhập làn nguy hiểm - 21.8-24-8-32
+Tình huống số 40- Gần cổng làng, phía sau có xe mô-tô lấn làn để vượt xe ô tô đang dừng đỗ - 16.6-20.3-34
+Tình huống số 41- Xe con làn đối diện rẽ nhanh cắt qua đầu xe bạn tại ngã ba - 19.6-21.5-34
+Tình huống số 42- Tại ngã tư, đèn xanh , xe bạn bắt đầu di chuyển có xe mô-tô rẽ cắt ngang qua đầu xe bạn - 17.1-20-32
+Tình huống số 43- Trười mưa, xe con giảm nhanh tốc độ để tránh xe tải chuyển làn đột ngột tránh chướng ngại vật phía trước - 16.6-20.6-36
+Tình huống số 44- Phía sau làn phải có xe con vượt lên và chuyển làn cắt ngang nguy hiểm trước mặt xe bạn - 15.5-19.5-28
+Tình huống số 45- Xe tải ở làn phải vượt lên và đột ngột chuyển làn sang làn giữa làm xe phía trước phải phanh gấp - 20.2-23-30
+Tình huống số 46- Xe ô tô con ở làn bên trái vượt lên và chuyển làn phải cắt qua nguy hiểm trước đầu xe bạn để rẽ ra đường gom - 27-30.2-37
+Tình huống số 47- Xe cấp cứu xin đường, xe con bên trái tang tốc vượt lên và chuyển làn cắt qua đầu xe bạn - 25-28.3-36
+Tình huống số 48- Xe bạn có tín hiệu để chuyển làn trái thì có xe phía sau nháy pha liên tục để vượt - 15-17.6-34
+Tình huống số 49- Ô tô phía trước phanh gấp do có xe tải tạt sang đột ngột vì gặp chướng ngại vật - 17.2-22.2-33
+Tình huống số 50- Xe tải phía trước làn phải đột ngột tang tốc và chuyển sang làn giữa làm xe con phía trước phanh gấp - 18.9-23.3-35
+Tình huống số 51- Xe tải bật đèn cảnh báo đi ngược đường ở làn bên phải cao tốc - 19.2-24.1-36
+Tình huống số 52- Qua đoạn đường cong đột nhiên có xe tải đi lùi trong làn khẩn cấp - 22.5-26.2-35
+Tình huống số 53- Trên đường cao tốc bân đêm, đột nhiên có xe tải đi chiều ngược lại ở làn khẩn cấp - 23-26.9-35
+Tình huống số 54- Xe tải từ đường nhanh nhập vào cao tốc với tốc độ cao - 19-23.8-31
+Tình huống số 55- Cao tốc, xe tải đột ngột giảm tốc và chuyển sang làn xe bạn do gặp xe đang gặp sự cố trên đường - 17.6-20.7-36
+Tình huống số 56- Xe con đang dừng ở làn khẩn cấp xi nhan nhập làn trước xe bạn - 17.5-20-27
+Tình huống số 57- Xe con phai trước giảm tốc độ và chuyển sang làn xe bạn do gặp đoạn đường đang sửa chữa phía trước - 30.8-37.4-60
+Tình huống số 58- Xe tải phía trước giảm tốc độ, chuyển sang làn giữa do gặp đoạn đường đang sửa chữa phía trước - 24.5-29.4-47
+Tình huống số 59- Xe container đang đi từ làn trái chuyển ra đường nhanh cắt qua làn đường xe bạn - 27-30-39
+Tình huống số 60- Xe 16 chỗ từ làn đường khẩn cấp đi ra vào làn xe bạn - 17.5-21.5-34
+Tình huống số 61- Xe con từ đường nhánh nhập làn nguy hiểm cắt qua đầu xe bạn - 26.9-31.5-37
+Tình huống số 62- Xe con đi ngược chiều nguy hiểm tại làn đường tốc đọ cao nhất trên cao tốc - 26-30-37
+Tình huống số 63- Đàn gia súc từ bên đường đi ra cắt qua làn đường xe bạn tại khu vực cao tốc bị hỏng hộ lan - 14.7-18.9-30
+Tình huống số 64- Phía đường cong xuất hiện xe tải đi đối diện làn xe khách phía trước giảm tốc độ đột ngột - 20.2-24.2-33
+Tình huống số 65- Đường đèo dốc ban đêm gần đoạn đường cong, đột ngột tại khúc cua có xe khách lấn làn vượt xe tải lớn - 27-31.8-43
+Tình huống số 66- Đi phia sau xe tải chở vật liệu không được chằng buộc cẩn thận - 19.5-23.4-29
+Tình huống số 67- Xe ô tô phía trước phanh gấp do có động vật hoang dã đứng ven đường - 22.9-27-39
+Tình huống số 68- Đường núi, sương mù, có đàn bò đứng sát đường ngay sau đoạn đường cong - 21.1-24-33
+Tình huống số 69- Xe con vào cua lấn làn nguy hiểm va chạm với xe ngược chiều trên đường đồi núi - 24.9-27-38
+Tình huống số 70- Xe khách lấn làn vượt xe container ngay tại khúc cua trên đường núi - 37.9-42.1-58
+Tình huống số 71- Đường núi, trời mưa, xe phía trước đột ngột dừng lại vì hỏng máy - 22-26.4-36
+Tình huống số 72- Xe tải lấn làn đường xe bạn để vượt các xe khách trên đường núi thời tiết sương mù - 25.1-29.6-37
+Tình huống số 73- Xe con lấn làn xe bạn để vượt xe tải trên đường núi ngay tại đoạn đường quanh co - 25.3-28.2-37
+Tình huống số 74- Xe ô tô phía trước phanh gấp để tránh đoàn xe đạt từ đường nhanh đi ra - 21.4-25.5-39
+Tình huống số 75- Trẻ em đột ngột lao ra để nhật quả bóng bị lăn ra đường - 15.4-18.4-30
+Tình huống số 76- Em bé đột ngột chạy ra đường - 16.4-20-33
+Tình huống số 77- Xe con từ làn phải (khuất tầm nhìn) cắt ngang qua các xe đang đi thẳng để sang đường - 16.5-20.2-32
+Tình huống số 78- Đèn vừa chuyển xanh, đột ngột xe mô-tô làn trái phía trước cố vượt đèn đỏ cắt qua trước đầu xe - 21.5-24.1-31
+Tình huống số 79- Xe mô-tô đi ra từ đường nhanh nguy hiểm phía sau xe buýt vừa đi qua - 19.5-22.5-34
+Tình huống số 80- Xe mô tô vượt lên đột ngột giảm tốc và chuyển sang làn xe bạn để tránh chướng ngại vật trên đường - 16.7-19.5-27
+Tình huống số 81- Xe bán tải từ đường bên kia quay đầu đột ngột lấn làn xe bạn - 25.4-28.5-33
+Tình huống số 82- Xe tải lớn ở làn đường ngược chiều lấn làn xe bạn để vượt qua xe buýet - 16.5-21.3-35
+Tình huống số 83- Xuất hiện gia súc từ vệ đường đi ra đường quốc lộ ngay trước mặt xe bạn - 17.6-20.5-30
+Tình huống số 84- Xe con phía trước giảm tốc độ đột ngột và chuyển làn để tránh xe buýt đang dừng - 19.5-23.5-31
+Tình huống số 85- Khúc gỗ trên xe tải phía trước bị rơi xuống do xe phanh gấp - 26.1-28.4-39
+Tình huống số 86- Xe con đi phía trước giảnh tốc và chuyển làn đột ngột để tránh chướng ngại vật - 14.5-18.5-31
+Tình huống số 87- Đi qua chỗ giao cắt với đường sắt ban đêm, không có đèn tín hiệu, phia sau xe con, đột nhiên có tàu đi tới - 13.8-18.5-34
+Tình huống số 88- Xe mô-tô phánh và chuyển làn để tránh xe buýt vào trả khách - 21.2-24.2-31
+Tình huống số 89- Xe đạt từ bên kia đường đối diện bang qua đường khong quan sát trước mặt xe bạn - 18.8-22.6-30
+Tình huống số 90- Xe bán tải phía trước giảm tốc độ và chuyển làn khẩn cấp để tránh xe mô-tô đi ngược chiều - 16.6-20.6-29
+Tình huống số 91- [Tai nạn] xe ô tô innova lùi trên cao tốc Hà Nội  Thái Nguyên - 15.7-20.1-31
+Tình huống số 92- [Tai nạn] xe mô-tô lấn làn vượt ẩu trên đường núi, va chạm với xe khách đi ngược chiều - 15-18.5-25
+Tình huống số 93- [Tai nạn] xe con từ làn trong cùng bên trái lần làn vượt ẩu để đi ra đường nhánh, va chạm với xe tải - 22.9-26.2-37
+Tình huống số 94- [Tai nạn] tai nạn liên hoàn giữa 3 xe khách do đâm vào xe đang dừng đỗ để sửa chữa - 27.4-31.4-41
+Tình huống số 95- [Tai nạn] tài xế giật mình đánh lái gấp đâm vào dải phân cách, xe đổ vào đám đông làm 5 người thiệt mạng - 15.3-20.3-29
+Tình huống số 96- [Tai nạn] tai nạn xe container không làm chủ tốc độ dâm trực diện vào xe ô tô con đang dừng chờ đèn đỏ - 27.5-30.7-33
+Tình huống số 97- [Tai nạn] xe khách vào cua với tốc độ cao, lấn sang đường ngược chiều va chạm với xe đi chiều ngược lại - 29-31.8-46
+Tình huống số 98- [Tai nạn] tai nạn đèn prenn xe khách mất lái đâm vào người điều tiết giao thông và xe khách đi ngược chiều - 23.8-27.4-39
+Tình huống số 99- [Tai nạn] hầm Hải Vân xe kéo rơ mooc mất lái lấn làn đâm trực diện vào xe tải đi chiều ngược lại gây tai nạn - 26-29-37
+Tình huống số 100- [Tai nạn] xe ô tô con chở người đi qua đường sắt tại Nam Định không chú ý va chạm với tàu hỏa - 18.2-21.1-31
+Tình huống số 101- [Tai nạn] xe ô tô 16 chỗ chở khách rẽ trái qua đường sắt không chú ý va chạm với tàu hỏa - 21.8-24-36
+Tình huống số 102- [Tai nạn] xe khác va chạm với xe cứu hỏa đi ngược chiều tại nút giao Pháp Vân - 22-25.6-30
+Tình huống số 103- [Tai nạn] Phía trước đột nhiên có xe ô tô từ làn đối diện đi ngược chiều va chạm với xe con - 26.5-29.5-34
+Tình huống số 104- [Tai nạn] Tai ngã tư Hàng Xanh, lái xe ô tô con trong tình trạng có nồng độ cồn không làm chủ tốc độ đâm vào loạt xe dừng chờ đèn đỏ - 29-31.6-37
+Tình huống số 105- [Tai nạn] xe khách 45 chỗ đâm vào xe đầu kéo rơ moóc chở máy ủi đi từ đường tránh ra gây tai nọn thảm khốc - 20.5-23-30
+Tình huống số 106- [Tai nạn] Xe khách 48 chỗ thiếu kỹ năng điều khiển, không thông thuốc địa hình lao xuống vực tại Kon Tum - 26-29.2-40
+Tình huống số 107- [Tai nạn] Xe Khách chạy vượt xe tải, đâm trực diện vào xe khách đi chiều ngược lại gây tai nạn liên hoàn 3 xe - 22-25-42
+Tình huống số 108- [Tai nạn] Trường mưa, đường trơn trược xe tải khi vào cua không làm chủ tốc độ đã đâm vào xe ben đi ngược chiều - 29.6-32-37
+Tình huống số 109- [Tai nạn] xe 16 chỗ từ đường nhanh, khuất tầm nhìn rẽ vào đường chính không giảm tốc độ, bị xe sơ mi rơ moóc đâm vào (tại Ngã 3 Nà Phặc  Bắc Kạn) - 19.2-22.3-31
+Tình huống số 110- [Tai nạn] Xe container bất ngờ tông vào hang loạt phương tiện đang dừng đèn đỏ tại quốc lộ 1, đoạn nút giao Mỹ Phước  Tân Vạn, Bình Dương - 19-22-30
+Tình huống số 111- [Tai nạn] Xe khách lấn làn vượt xe tải chỗ đường cong - 18.4-21.6-24
+Tình huống số 112- [Tai nạn] Xe khách 16 chỗ vượt ẩu qua xe đầu kéo va chạm với xe khách đang xuống dốc tốc độ cao - 14.1-18-27
+Tình huống số 113- [Tai nạn] Khi đen tín hiệu chuyển sang xanh, đột ngột có xe con cố vượt từ đường giao bên trái sang làm va chạm với xe con - 23.7-26.6-29
+Tình huống số 114- [Tai nạn] ô tô 7 chỗ đi trên cầu treo hẹp ban đêm, tài xe lái xe va chạm với xe máy, xe dâm xuống song tại cầu treo qua song Giăng, Thanh Chương, Nghệ An - 19-23.2-38
+Tình huống số 115- [Tai nạn] Xe con phanh gấp tránh xe máy từ ngõ lao ra, xe khách không làm chủ tốc độ đã đâm trực diện vào xe con - 19.5-23-29
+Tình huống số 116- [Tai nạn] Phía trước có đá lở đột ngột và rơi xuống (tai nạn tại Đồng Văn, Hà Giang) - 17.6-22.2-30
+Tình huống số 117- [Tai nạn] Xe con phanh gấp tránh xe máy từ ngõ lao ra, xe khách không làm chủ tốc độ đã đâm trực diện vào xe con - 17.6-20-26
+Tình huống số 118- [Tai nạn] Xe 16 chỗ rẽ không quan sát, không làm chủ tốc độ đâm vào xe bán tải đang lùi - 17.5-22.5-30
+Tình huống số 119- [Tai nạn] Xe khách không tuân thủ khoảng cách an toàn xử lý tình huống không kịp dẫn tới va chạm với xe tải đang dừng đỗ - 18.7-21.5-36
+Tình huống số 120- [Tai nạn] Xe tải không làm chủ đường tốc độ mất lái lao vào chợ dân sinh và va chạm với các xe đang đi phía trước - 20.6-23.3-40
+

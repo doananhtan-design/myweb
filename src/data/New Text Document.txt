@@ -1,0 +1,5 @@
+Tình huống số 1- Người đi bộ sang đường bị khuất sau xe tải - 17,5-20,4-27
+Tình huống số 2- Người đi bộ vượt đền đỏ sang đường - 24,7-27-40
+Tình huống số 3- Xe phía trước phanh gấp để tránh xe buýt đang dừng tại bến xe buýt -22-24,7-34
+Tình huống số 4- Xe con từ đường nhanh đi nhanh ra tại ngã ba không có đèn tính hiệu giao thông -17,5-22-34
+Tình huống số 5- Xe máy đang đi thẳng, đột ngột rẻ trái sang đường trước đầu xe bạn - 19-23,2-33
