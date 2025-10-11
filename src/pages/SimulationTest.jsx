@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSpaceScore } from "../utils/scoreUtils";
@@ -45,12 +44,6 @@ export default function SimulationFixedExam() {
       setCurrentIndex((prev) => prev + 1);
       setScore(null);
       setSpaceDisabled(false);
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.currentTime = 0;
-          videoRef.current.play();
-        }
-      }, 300);
     } else {
       handleFinishExam();
     }
@@ -82,6 +75,12 @@ export default function SimulationFixedExam() {
     if (videoRef.current) {
       videoRef.current.controls = false;
     }
+  }, [currentIndex]);
+
+  // ✅ Reset khi chuyển câu
+  useEffect(() => {
+    setScore(null);
+    setSpaceDisabled(false);
   }, [currentIndex]);
 
   if (!selected)
@@ -162,11 +161,32 @@ export default function SimulationFixedExam() {
             src={selected.videos ? `/${selected.videos}` : ""}
             autoPlay
             onEnded={nextQuestion}
+            onLoadedData={() => videoRef.current?.play()}
             className="w-full select-none pointer-events-none"
           />
+
+          {/* 🚩 Nút GẮN CỜ — góc phải dưới video (mobile only) */}
+          {!isFinished && (
+            <button
+              onClick={() => {
+                if (isFinished || spaceDisabled) return;
+                const currentTime = videoRef.current?.currentTime || 0;
+                console.log("🚩 Gắn cờ tại", currentTime.toFixed(1), "s");
+
+                // ✅ Giả lập nhấn phím cách
+                if (typeof window.dispatchEvent === "function") {
+                  const event = new KeyboardEvent("keydown", { code: "Space" });
+                  window.dispatchEvent(event);
+                }
+              }}
+              className="absolute bottom-3 right-3 bg-red-600 text-white px-4 py-2 text-lg rounded-full shadow-lg active:scale-95 transition-transform sm:hidden"
+            >
+              🚩
+            </button>
+          )}
         </div>
 
-        {/* 🟢 Chỉ hiện “Bạn được +x điểm” */}
+        {/* 🟢 Hiện “+x điểm” sau khi gắn cờ */}
         {score !== null && (
           <div className="text-center text-2xl font-bold mt-4 text-green-600 drop-shadow-sm">
             ✅ Bạn được +{score} điểm
