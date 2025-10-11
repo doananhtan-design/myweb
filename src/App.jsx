@@ -11,7 +11,7 @@ import SimulationTopics from "./pages/SimulationTopics";
 import SimulationTopicDetail from "./pages/SimulationTopicDetail";
 import SimulationTopicSelect from "./pages/SimulationTopicSelect";
 import SimulationRandom from "./pages/SimulationRandom";
-import FixedExamList from "./pages/FixedExamList";
+import FixedExamList from "./pages/FixedExamlist";
 
 function App() {
   return (
