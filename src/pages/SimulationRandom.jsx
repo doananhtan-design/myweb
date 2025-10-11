@@ -152,53 +152,59 @@ export default function SimulationRandom() {
           {selected.title}
         </h2>
 
-        {/* 🎬 Video + nút gắn cờ */}
-        <div className="relative">
-          <video
-            ref={videoRef}
-            src={selected.video ? `/${selected.video}` : ""}
-            controls
-            autoPlay
-            playsInline
-            webkit-playsinline="true"
-            onEnded={handleVideoEnded}
-            className="w-full max-h-[90vh] sm:max-h-[75vh] object-contain rounded-xl shadow-lg mb-3"
-            style={{ aspectRatio: "16/9" }}
-          />
+       {/* 🎬 Video + nút gắn cờ */}
+<div className="relative w-full">
+  <video
+    ref={videoRef}
+    src={selected.video ? `/${selected.video}` : ""}
+    controls
+    autoPlay
+    playsInline
+    webkit-playsinline="true"
+    x5-playsinline="true"
+    disablePictureInPicture
+    onEnded={handleVideoEnded}
+    className="w-full max-h-[90vh] sm:max-h-[75vh] object-contain rounded-xl shadow-lg mb-3 bg-black"
+    style={{
+      aspectRatio: "16/9",
+    }}
+  />
 
-          {/* 🚩 Nút gắn cờ nổi trên video */}
-          <button
-            onClick={() => {
-              if (!videoRef.current || overlayActive) return;
-              if (navigator.vibrate) navigator.vibrate(80);
-              const t = Math.floor(videoRef.current.currentTime * 10) / 10;
-              handleScore(t);
-            }}
-            className="absolute bottom-3 right-3 sm:hidden bg-red-500 text-white font-semibold px-5 py-4 rounded-full shadow-lg active:scale-95 transition-all text-base landscape:bottom-5 landscape:right-5"
-            style={{ zIndex: 30, opacity: overlayActive ? 0.5 : 1 }}
-          >
-            🚩 Gắn cờ
-          </button>
+  {/* 🚩 Nút gắn cờ luôn nổi trên video, kể cả khi xoay ngang */}
+  <button
+    onClick={() => {
+      if (!videoRef.current || overlayActive) return;
+      if (navigator.vibrate) navigator.vibrate(80);
+      const t = Math.floor(videoRef.current.currentTime * 10) / 10;
+      handleScore(t);
+    }}
+    className="fixed z-[999] bottom-4 right-4 bg-red-500 text-white font-semibold px-5 py-4 rounded-full shadow-lg active:scale-95 transition-all text-base landscape:bottom-5 landscape:right-5"
+    style={{ opacity: overlayActive ? 0.5 : 1 }}
+  >
+    🚩 Gắn cờ
+  </button>
 
-          {/* 💡 Gợi ý hình ảnh */}
-          {showHint && selected.hintImage && (
-            <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
-              <img
-                src={`/${selected.hintImage}`}
-                alt="Hint"
-                className="max-h-[75%] rounded-lg shadow-lg border border-white"
-              />
-              <button
-                onClick={() => {
-                  setShowHint(false);
-                  setOverlayActive(false);
-                  videoRef.current.play();
-                }}
-                className="mt-4 bg-green-600 text-white px-3 py-2 rounded-lg text-sm"
-              >
-                ✅ Đã hiểu
-              </button>
-            </div>
+  {/* 💡 Gợi ý hình ảnh */}
+  {showHint && selected.hintImage && (
+    <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
+      <img
+        src={`/${selected.hintImage}`}
+        alt="Hint"
+        className="max-h-[75%] rounded-lg shadow-lg border border-white"
+      />
+      <button
+        onClick={() => {
+          setShowHint(false);
+          setOverlayActive(false);
+          videoRef.current.play();
+        }}
+        className="mt-4 bg-green-600 text-white px-3 py-2 rounded-lg text-sm"
+      >
+        ✅ Đã hiểu
+      </button>
+    </div>
+  )}
+</div>
           )}
         </div>
 
