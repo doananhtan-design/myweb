@@ -6,7 +6,6 @@ export default function SimulationFixedExam() {
   const location = useLocation();
   const videoRef = useRef(null);
 
-  // ✅ Lấy đề thi được chọn
   const exam = location.state?.exam;
   if (!exam) {
     return (
@@ -22,10 +21,11 @@ export default function SimulationFixedExam() {
   const [totalScore, setTotalScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [spaceDisabled, setSpaceDisabled] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
 
   const selected = questions[currentIndex];
 
-  // ⌨️ Xử lý phím cách để chấm điểm
+  // ⌨️ Space scoring
   useSpaceScore({
     videoRef,
     selected,
@@ -37,7 +37,20 @@ export default function SimulationFixedExam() {
     },
   });
 
-  // ⏭ Chuyển sang câu tiếp
+  // 📱 Theo dõi xoay màn hình
+  useEffect(() => {
+    const updateOrientation = () => {
+      setIsLandscape(window.innerWidth > window.innerHeight);
+    };
+    updateOrientation();
+    window.addEventListener("resize", updateOrientation);
+    window.addEventListener("orientationchange", updateOrientation);
+    return () => {
+      window.removeEventListener("resize", updateOrientation);
+      window.removeEventListener("orientationchange", updateOrientation);
+    };
+  }, []);
+
   const nextQuestion = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
@@ -49,18 +62,14 @@ export default function SimulationFixedExam() {
           videoRef.current.play();
         }
       }, 300);
-    } else {
-      handleFinishExam();
-    }
+    } else handleFinishExam();
   };
 
-  // 🏁 Kết thúc bài
   const handleFinishExam = () => {
     setIsFinished(true);
     videoRef.current?.pause();
   };
 
-  // 🔁 Làm lại
   const handleRestart = () => {
     setCurrentIndex(0);
     setScore(null);
@@ -73,12 +82,10 @@ export default function SimulationFixedExam() {
     }, 300);
   };
 
-  // 🚫 Ẩn thanh điều khiển video
   useEffect(() => {
     if (videoRef.current) videoRef.current.controls = false;
   }, [currentIndex]);
 
-  // ✅ Nếu không có câu hỏi
   if (!selected)
     return (
       <div className="min-h-screen flex items-center justify-center text-red-600">
@@ -86,7 +93,6 @@ export default function SimulationFixedExam() {
       </div>
     );
 
-  // ✅ Trang kết quả
   if (isFinished) {
     const maxScore = questions.length * 5;
     const passed = totalScore >= maxScore * 0.8;
@@ -96,27 +102,20 @@ export default function SimulationFixedExam() {
           <h2 className="text-2xl font-bold text-blue-700 mb-4">
             🎯 Kết quả thi - {exam.title}
           </h2>
-
           <p className="text-4xl font-extrabold mb-3 text-red-600 drop-shadow-sm">
             {totalScore} / {maxScore}
           </p>
-
           {passed ? (
             <>
               <p className="text-2xl font-semibold text-green-600 mb-2">✅ ĐẠT</p>
-              <p className="text-lg text-gray-700 font-medium">
-                🎉 Chúc mừng bạn!
-              </p>
+              <p className="text-lg text-gray-700 font-medium">🎉 Chúc mừng bạn!</p>
             </>
           ) : (
             <>
               <p className="text-2xl font-semibold text-red-600 mb-2">❌ CHƯA ĐẠT</p>
-              <p className="text-lg text-gray-700 font-medium">
-                💪 Cần luyện tập thêm!
-              </p>
+              <p className="text-lg text-gray-700 font-medium">💪 Cần luyện tập thêm!</p>
             </>
           )}
-
           <div className="flex flex-col sm:flex-row justify-center gap-3 mt-6">
             <button
               onClick={handleRestart}
@@ -136,7 +135,6 @@ export default function SimulationFixedExam() {
     );
   }
 
-  // ✅ Giao diện thi
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6 relative">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-2xl p-4 sm:p-6 relative">
@@ -148,7 +146,7 @@ export default function SimulationFixedExam() {
           Câu {currentIndex + 1}/{questions.length}
         </div>
 
-        {/* 🎬 Video */}
+        {/* 🎬 Video + nút GẮN CỜ luôn nổi */}
         <div className="relative overflow-hidden rounded-xl">
           <video
             ref={videoRef}
@@ -156,31 +154,31 @@ export default function SimulationFixedExam() {
             autoPlay
             muted
             playsInline
-            webkit-playsinline="true"
             onLoadedData={() => videoRef.current?.play()}
             onEnded={nextQuestion}
-            className="w-full select-none bg-black"
+            className="w-full bg-black select-none"
           />
-
-          {/* 🚩 Nút GẮN CỜ — hiển thị cả trên mobile */}
-          {!isFinished && (
-            <button
-              onClick={() => {
-                if (isFinished || spaceDisabled) return;
-                const currentTime = videoRef.current?.currentTime || 0;
-                console.log("🚩 Gắn cờ tại", currentTime.toFixed(1), "s");
-                const event = new KeyboardEvent("keydown", { code: "Space" });
-                window.dispatchEvent(event);
-              }}
-              className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-red-600 text-white text-xl sm:text-2xl px-5 py-3 rounded-full shadow-lg active:scale-95 transition-transform z-50"
-              style={{ opacity: 0.9 }}
-            >
-              🚩
-            </button>
-          )}
         </div>
 
-        {/* ✅ Hiển thị điểm */}
+        {/* ✅ Nút gắn cờ nổi cố định, không bị mất khi xoay ngang */}
+        {!isFinished && (
+          <button
+            onClick={() => {
+              if (isFinished || spaceDisabled) return;
+              const currentTime = videoRef.current?.currentTime || 0;
+              console.log("🚩 Gắn cờ tại", currentTime.toFixed(1), "s");
+              const event = new KeyboardEvent("keydown", { code: "Space" });
+              window.dispatchEvent(event);
+            }}
+            className={`fixed z-[9999] ${
+              isLandscape ? "bottom-4 right-4" : "bottom-6 right-6"
+            } bg-red-600 text-white text-xl sm:text-2xl px-5 py-3 rounded-full shadow-lg active:scale-95 transition-transform`}
+            style={{ opacity: 0.9 }}
+          >
+            🚩
+          </button>
+        )}
+
         {score !== null && (
           <div className="text-center text-2xl font-bold mt-4 text-green-600 drop-shadow-sm">
             ✅ Bạn được +{score} điểm
