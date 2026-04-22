@@ -13125,8 +13125,8 @@
         "text": "Xe mô tô, xe con, xe của bạn."
       }
     ],
-    "correctAnswer": "1",
-    "hint": "Xe của bạn đi trước, sau đó xe mô tô, cuối cùng xe con.",
+    "correctAnswer": "3",
+    "hint": "Xe của bạn phải nhường đường khi đang ở đường không ưu tiên.",
     "image": null,
     "category": "sahinh",
     "isCritical": false
